@@ -32,14 +32,12 @@
   }
 
   html {
-    @apply text-black-100;
+    @apply text-black-100 h-full leading-normal;
     scroll-behavior: smooth;
-    line-height: 1.4;
   }
 
   body {
-    @apply bg-cream-150 font-gt-pressura-mono;
-    transition: 1s ease 1s;
+    @apply bg-cream-150 h-full font-gt-pressura-mono transition-all duration-1000 ease-normal delay-1000;
   }
 
   ::selection {
@@ -47,6 +45,6 @@
   }
 
   #__next {
-    @apply overflow-hidden;
+    @apply overflow-hidden h-full;
   }
 }
