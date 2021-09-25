@@ -21,8 +21,6 @@ export const AnimatedLink: React.FC<FooterAnimatedLinkProps> = ({
   React.useEffect(() => {
     if (isReady && !inView) {
       const handleScroll = () => {
-        console.log('scroll');
-
         if (isInView(linkRef.current, false)) {
           setInView(true);
           scroll.off('scroll', handleScroll);
