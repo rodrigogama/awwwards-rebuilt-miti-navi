@@ -9,10 +9,6 @@ export const TextHover = styled.span`
   ${tw`absolute top-5 text-gray-100 left-0 transition-top duration-1000 ease-miti`}
 `;
 
-export const TextWrapper = styled.span`
-  ${tw`relative overflow-hidden inline-block`}
-`;
-
 export const textTranslateHoverStyles = css`
   &:hover {
     & ${Text} {
@@ -23,4 +19,9 @@ export const textTranslateHoverStyles = css`
       ${tw`top-0`}
     }
   }
+`;
+
+export const TextWrapper = styled.span`
+  ${tw`relative overflow-hidden inline-block`}
+  ${textTranslateHoverStyles}
 `;
