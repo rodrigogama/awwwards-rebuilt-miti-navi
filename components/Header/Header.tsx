@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({ isLoaded }) => {
   const [firstHalf, secondHalf] = splitArrayInHalf<LinkProps>(MENU_ITEMS);
 
   return (
-    <HeaderContainer isLoaded={isLoaded}>
+    <HeaderContainer id="header" data-scroll-section isLoaded={isLoaded}>
       <MenuContainer>
         <MenuTrigger role="button" onClick={() => setMenuOpen(value => !value)}>
           <span>{isMenuOpen ? 'fermer' : 'menu'}</span>
