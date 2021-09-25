@@ -1,6 +1,8 @@
 import React from 'react';
 import NextLink from 'next/link';
+import { useLocomotiveScroll } from 'react-locomotive-scroll';
 import { SOCIAL_MEDIA_ITEMS, FOOTER_ITEMS } from '../../contants';
+import { animateOnScroll } from '../../utils';
 import { TextTranslateEffect } from '../TextTranslateEffect';
 import { LogoLetter } from '../Logo';
 import {
@@ -10,16 +12,36 @@ import {
   Content,
   RowResponsive,
   SocialMediaContainer,
-  LinkTranslateEffect,
   ColumnStart,
   ColumnMiddle,
   ColumnEnd,
 } from './styles';
+import { AnimatedLink } from '../AnimateLink';
 
 export const Footer: React.FunctionComponent = () => {
+  const contactLinkRef = React.useRef<HTMLAnchorElement | null>(null);
+  const socialMediaItemsRef = React.useRef<Array<HTMLAnchorElement | null>>([]);
+  const footerItemsRef = React.useRef<Array<HTMLAnchorElement | null>>([]);
+
+  const { scroll, isReady } = useLocomotiveScroll();
+
+  React.useEffect(() => {
+    if (isReady) {
+      const elementsToAnimate = [
+        contactLinkRef.current,
+        ...socialMediaItemsRef.current,
+        ...footerItemsRef.current,
+      ] as Array<HTMLElement>;
+
+      scroll.on('scroll', () => {
+        animateOnScroll(elementsToAnimate);
+      });
+    }
+  }, [scroll, isReady]);
+
   return (
-    <FooterContainer>
-      <BackToTop>
+    <FooterContainer data-scroll-section>
+      <BackToTop href="#header" data-scroll-to data-scroll>
         back <br />
         to the <br />
         top
@@ -44,11 +66,9 @@ export const Footer: React.FunctionComponent = () => {
             </p>
           </ColumnStart>
           <ColumnMiddle>
-            <NextLink href="/contact" passHref>
-              <LinkTranslateEffect className="py-4">
-                <TextTranslateEffect>contact us</TextTranslateEffect>
-              </LinkTranslateEffect>
-            </NextLink>
+            <AnimatedLink href="/contact" className="py-4" ref={contactLinkRef}>
+              contact us
+            </AnimatedLink>
           </ColumnMiddle>
           <ColumnEnd as="address" className="not-italic">
             <p className="my-4">
@@ -64,16 +84,17 @@ export const Footer: React.FunctionComponent = () => {
         <hr />
 
         <SocialMediaContainer>
-          {SOCIAL_MEDIA_ITEMS.map(item => (
-            <NextLink href={item.url} key={item.url} passHref>
-              <LinkTranslateEffect
-                className="text-sm leading-normal"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <TextTranslateEffect>{item.text}</TextTranslateEffect>
-              </LinkTranslateEffect>
-            </NextLink>
+          {SOCIAL_MEDIA_ITEMS.map((item, itemIndex) => (
+            <AnimatedLink
+              key={item.url}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm leading-normal"
+              ref={el => (socialMediaItemsRef.current[itemIndex] = el)}
+            >
+              {item.text}
+            </AnimatedLink>
           ))}
         </SocialMediaContainer>
 
@@ -91,16 +112,17 @@ export const Footer: React.FunctionComponent = () => {
           </ColumnMiddle>
 
           <ColumnEnd>
-            {FOOTER_ITEMS.map(item => (
-              <NextLink href={item.url} key={item.url} passHref>
-                <LinkTranslateEffect
-                  className="text-xxs leading-normal mr-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <TextTranslateEffect>{item.text}</TextTranslateEffect>
-                </LinkTranslateEffect>
-              </NextLink>
+            {FOOTER_ITEMS.map((item, itemIndex) => (
+              <AnimatedLink
+                key={item.url}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xxs leading-normal mr-4"
+                ref={el => (footerItemsRef.current[itemIndex] = el)}
+              >
+                {item.text}
+              </AnimatedLink>
             ))}
           </ColumnEnd>
         </RowResponsive>

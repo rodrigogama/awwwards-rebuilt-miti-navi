@@ -1,9 +1,5 @@
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
-import {
-  TextTranslateEffect,
-  textTranslateHoverStyles,
-} from '../TextTranslateEffect';
 
 const rowStyle = css`
   ${tw`flex flex-row flex-wrap flex-auto text-center -mx-4`}
@@ -34,7 +30,9 @@ export const FooterDivider = styled.div`
 export const BackToTop = styled.a`
   ${tw`absolute -top-4 left-1/2 -translate-x-8 w-16 cursor-pointer opacity-0 no-underline uppercase text-center text-black-500 xl:top-7.5 transition-opacity duration-600 ease-miti`}
 
-  opacity: 1; // remove it when animating!
+  &.is-inview {
+    ${tw`opacity-100`}
+  }
 `;
 
 export const Content = styled.div`
@@ -80,29 +78,4 @@ export const ColumnEnd = styled.div`
 export const SocialMediaContainer = styled.div`
   ${rowStyle}
   ${tw`justify-between px-6`}
-`;
-
-export const LinkTranslateEffect = styled.a`
-  ${tw`relative inline-block uppercase tracking-px transition-opacity duration-600 ease-miti delay-2750`}
-
-  /* after styles */
-  ${tw`after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-px after:bg-cream-50 after:transition-all after:duration-1000 after:ease-miti after:delay-600`}
-
-  /* hover after styles */
-  ${tw`hover:after:w-10/12 hover:after:opacity-30 hover:after:delay-none`}
-
-  /* translate effect */
-  ${textTranslateHoverStyles}
-
-  & ${styled(TextTranslateEffect)``} {
-    & > * {
-      ${tw`transition-top duration-1000 ease-miti delay-600`}
-    }
-  }
-
-  &:hover ${styled(TextTranslateEffect)``} {
-    & > * {
-      ${tw`transition-top duration-1000 ease-miti delay-none`}
-    }
-  }
 `;
