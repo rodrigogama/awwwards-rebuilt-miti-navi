@@ -1,11 +1,8 @@
 import type { NextPage } from 'next';
-// import { useLocomotiveScroll } from 'react-locomotive-scroll';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
 const Home: NextPage = () => {
-  // const { scroll } = useLocomotiveScroll();
-
   return (
     <>
       <Header isLoaded />

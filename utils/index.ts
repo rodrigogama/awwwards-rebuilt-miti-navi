@@ -8,7 +8,12 @@ export const splitArrayInHalf = <T>(
   return [firstHalf, secondHalf];
 };
 
-export const isInView = (element: HTMLElement, partialVisible: boolean) => {
+export const isInView = (
+  element: HTMLElement | null,
+  partialVisible: boolean,
+) => {
+  if (!element) return false;
+
   const { top, bottom } = element.getBoundingClientRect();
 
   // if the element is partially visible
@@ -18,12 +23,4 @@ export const isInView = (element: HTMLElement, partialVisible: boolean) => {
 
   // element is completely visible
   return top >= 0 && bottom <= window.innerHeight;
-};
-
-export const animateOnScroll = (elements: Array<HTMLElement>) => {
-  elements.forEach(element => {
-    if (isInView(element, false)) {
-      element.classList.add('animated-in-view');
-    }
-  });
 };
